@@ -127,10 +127,21 @@
     <ClCompile Include="day11_lib.c" />
     <ClCompile Include="day12.c" />
     <ClCompile Include="day12_lib.c" />
+    <ClCompile Include="day13.c" />
+    <ClCompile Include="day13_lib.c" />
+    <ClCompile Include="day14.c" />
+    <ClCompile Include="day14_lib.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="day11_lib.h" />
     <ClInclude Include="day12_lib.h" />
+    <ClInclude Include="day13_lib.h" />
+    <ClInclude Include="day14_lib.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="student.txt" />
+    <Text Include="student2.txt" />
+    <Text Include="student3.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

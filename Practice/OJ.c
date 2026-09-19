@@ -1,5 +1,415 @@
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define SIZE(a) (sizeof(a)/sizeof((a)[0]))
+
+
+
+
+
+
+
+
+// oj 에디터 - 배열
+#if 0
+#define MAX 1000
+
+int main(void){
+	char text[MAX] = { 0 };
+	char cmd;
+	char ch;
+
+	scanf("%s", text);
+
+	int cursor = strlen(text);
+
+	int n;
+	scanf("%d", &n);
+
+	for (int k = 0; k < n; ++k){
+		scanf(" %c", &cmd);
+
+		if (cmd == 'L'){
+			if (cursor > 0) {
+				cursor--;
+			}
+		}
+		else if (cmd == 'D'){
+			if (cursor < strlen(text))
+				cursor++;
+		}
+		else if (cmd == 'B'){
+			if (cursor > 0)	{
+				int len = strlen(text);
+				for (int i = cursor - 1; i < len; ++i){
+					text[i] = text[i + 1];
+				}
+				cursor--;
+			}
+		}
+		else if (cmd == 'P'){
+			scanf(" %c", &ch);
+
+			int len = strlen(text);
+
+			for (int i = len; i >= cursor; --i){
+				text[i + 1] = text[i];
+			}
+			text[cursor] = ch;
+			cursor++;
+		}
+	}
+
+	printf("%s\n", text);
+
+	return 0;// 1. head, tail 초기화
+	void Initial(node * *head, node * *tail);
+
+	// 2. 입력 문자열을 노드로 만들어 연결
+	void MakeStr(node * tail, const char* str);
+
+	// 3. 커서 왼쪽 이동
+	void CursorLeft_L(node * *curr, node * head);
+
+	// 4. 커서 오른쪽 이동
+	void CursorRight_D(node * *curr, node * tail);
+
+	// 5. 커서 왼쪽 문자 삭제
+	void Backspace_B(node * curr, node * head);
+
+	// 6. 커서 왼쪽에 문자 삽입
+	void Pluschar_P(node * curr, char ch);
+
+	// 7. 출력
+	void PrintStr(node * head, node * tail);
+
+	// 8. 전체 동적 메모리 해제
+	void Destroy(node * *head);
+}
+#endif
+
+#if 0
+#define _CRT_SECURE_NO_WARNINGS
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+typedef struct _node {
+	char val;
+	struct _node* next;
+	struct _node* prev;
+}node;
+
+node* Init_Head(void) {
+	node* head = (node*)calloc(1, sizeof(node));
+	if (head == NULL) exit(0);
+	head->val = 0;
+	head->next = head;
+	head->prev = head;
+
+	return head;
+}
+
+void MakeStr(node* head, char* arr) {
+	int l = strlen(arr);
+	for (int i = 0; i < l; i++) {
+		node* newnode = (node*)calloc(1, sizeof(node));
+		if (newnode == NULL) exit(0);
+		newnode->val = arr[i];
+		newnode->prev = head->prev;
+		newnode->next = head;
+		head->prev->next = newnode;
+		head->prev = newnode;
+	}
+}
+
+void CursorLeft_L(node** curr, node* head) {
+	if ((*curr) != head)
+		*curr = (*curr)->prev;
+}
+void CursorRight_D(node** curr, node* head) {
+	if ((*curr)->next != head)
+		*curr = (*curr)->next;
+}
+void backspace_B(node** curr, node* head) {
+	if ((*curr) != head) {
+		(*curr)->prev->next = (*curr)->next;
+		(*curr)->next->prev = (*curr)->prev;
+		node* tmp = (*curr);
+		(*curr) = (*curr)->prev;
+		free(tmp);
+	}
+}
+void Pluschar_P(node** curr, char ch) {
+	node* newnode = (node*)calloc(1, sizeof(node));
+	if (newnode == NULL) exit(0);
+	newnode->val = ch;
+	newnode->next = (*curr)->next;
+	newnode->prev = (*curr);
+	(*curr)->next->prev = newnode;
+	(*curr)->next = newnode;
+	(*curr) = (*curr)->next;
+}
+
+void calloc_calloc_calloc(node** head) {
+	node* curr = (*head)->next;
+	while (curr != *head) {
+		node* next = curr->next;
+		printf("%c", curr->val);
+		free(curr);
+		curr = next;
+	}
+	free(*head);
+	*head = NULL;
+}
+
+int main(void) {
+	char arr[100001] = { 0 };
+	(void)scanf("%s", arr);
+	
+	node* head = Init_Head();
+	MakeStr(head, arr);
+
+	node* curr = head->prev;
+	char cmd, ch;
+	int n;
+	(void)scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		(void)scanf(" %c", &cmd);
+		if (cmd == 'L') {
+			CursorLeft_L(&curr, head);
+		}
+		else if (cmd == 'D') {
+			CursorRight_D(&curr, head);
+		}
+		else if (cmd == 'B') {
+			backspace_B(&curr, head);
+		}
+		else if (cmd == 'P') {
+			(void)scanf(" %c", &ch);
+			Pluschar_P(&curr, ch);
+		}
+	}
+	calloc_calloc_calloc(&head);
+
+	return 0;
+}
+#endif
+
+#if 0
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+typedef struct _node {
+	char val;
+	struct _node* next;
+	struct _node* prev;
+}node;
+
+void print_str(node* head) {
+	node* curr = head->next;
+	while (curr != head) {
+		printf("%c", curr->val);
+		curr = curr->next;
+	}
+	printf("\n");
+}
+
+node* Init_Head(void) {
+	node* head = (node*)calloc(1, sizeof(node));
+	if (head == NULL) exit(0);
+	head->val = 0;
+	head->next = head;
+	head->prev = head;
+
+	return head;
+}
+
+void MakeStr(node* head, char* arr) {
+	for (int i = 0; i < strlen(arr); i++) {
+		node* newnode = (node*)calloc(1, sizeof(node));
+		if (newnode == NULL) exit(0);
+		newnode->val = arr[i];
+		newnode->prev = head->prev;
+		newnode->next = head;
+		head->prev->next = newnode;
+		head->prev = newnode;
+	}
+}
+
+void CursorLeft_L(node** curr, node* head) {
+	if (curr != head) {
+
+		*curr = (*curr)->prev;
+	}
+}
+void CursorRight_D(node** curr, node* head) {
+	if ((*curr)->next != head) {
+		*curr = (*curr)->next;
+	}
+}
+void backspace_B(node** curr, node* head) {
+	if (curr != head) {
+		(*curr)->prev->next = (*curr)->next;
+		(*curr)->next->prev = (*curr)->prev;
+		node* tmp = (*curr);
+		(*curr) = (*curr)->prev;
+		free(tmp);
+	}
+}
+void Pluschar_P(node** curr, char ch) {
+	node* newnode = (node*)calloc(1, sizeof(node));
+	if (newnode == NULL) exit(0);
+	newnode->val = ch;
+	newnode->next = (*curr)->next;
+	newnode->prev = (*curr);
+	(*curr)->next->prev = newnode;
+	(*curr)->next = newnode;
+	(*curr) = (*curr)->next;
+}
+
+void calloc_calloc_calloc(node** head) {
+	node* curr = (*head)->next;
+	while (curr != *head) {
+		node* next = curr->next;
+		free(curr);
+		curr = next;
+	}
+	free(*head);
+	*head = NULL;
+}
+
+int main(void) {
+	char arr[100001] = { 0 };
+	(void)scanf("%s", arr);
+	int l = strlen(arr);
+	node* head = Init_Head();
+	MakeStr(head, arr);
+
+	node* curr = head->prev;
+	char cmd, ch;
+	int n;
+	(void)scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		(void)scanf(" %c", &cmd);
+		if (cmd == 'L') {
+			 CursorLeft_L(&curr, head);
+		}
+		else if (cmd == 'D') {
+			CursorRight_D(&curr, head);
+		}
+		else if (cmd == 'B') {
+			backspace_B(&curr, head);
+		}
+		else if (cmd == 'P') {
+			(void)scanf(" %c", &ch);
+			Pluschar_P(&curr, ch);
+		}
+	}
+	print_str(head);
+	calloc_calloc_calloc(&head);
+
+	return 0;
+}
+#endif
+
+// oj 에디터 - DLL
+#if 0
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct node {
+	char data;
+	struct node* prev;
+	struct node* next;
+} Node;
+
+int main(void){
+	char str[100000];
+	scanf("%s", str);
+
+	Node* head = (Node*)calloc(1, sizeof(Node));
+	Node* tail = (Node*)calloc(1, sizeof(Node));
+
+	head->next = tail;
+	tail->prev = head;
+
+	for (int i = 0; str[i] != '\0'; ++i) {
+		Node* newnode = (Node*)calloc(1, sizeof(Node));
+		newnode->data = str[i];
+
+		newnode->prev = tail->prev;
+		newnode->next = tail;
+
+		tail->prev->next = newnode;
+		tail->prev = newnode;
+	}
+
+	Node* cursor = tail;
+
+	int n;
+	scanf("%d", &n);
+
+	for (int i = 0; i < n; ++i) {
+
+		char cmd;
+		scanf(" %c", &cmd);
+
+		if (cmd == 'L') {
+			if (cursor->prev != head) {
+				cursor = cursor->prev;
+			}
+		}
+		else if (cmd == 'D') {
+			if (cursor != tail) {
+				cursor = cursor->next;
+			}
+		}
+		else if (cmd == 'B') {
+			if (cursor->prev != head) {
+				Node* del = cursor->prev;
+				del->prev->next = cursor;
+				cursor->prev = del->prev;
+
+				free(del);
+			}
+		}
+		else if (cmd == 'P') {
+			char ch;
+			scanf(" %c", &ch);
+
+			Node* newnode =	(Node*)calloc(1, sizeof(Node));
+
+			newnode->data = ch;
+
+			newnode->prev = cursor->prev;
+			newnode->next = cursor;
+
+			cursor->prev->next = newnode;
+			cursor->prev = newnode;
+		}
+	}
+
+	for (Node* p = head->next; p != tail; p = p->next) {
+		printf("%c", p->data);
+	}
+	printf("\n");
+
+	Node* p = head;
+
+	while (p != NULL) {
+		Node* next = p->next;
+		free(p);
+		p = next;
+	}
+	return 0;
+}
+#endif
+
 // oj 2-6
 #if 0
 #include <stdio.h>
@@ -160,7 +570,7 @@ int main(void) {
 }
 #endif
 
-// oj 2-1 // static �ѹ� �Ẹ�� �;����...
+// oj 2-1 // static 한번 써보고 싶었어요...
 #if 0
 static int a = 0, b = 0, c = 0, d = 0, e = 0, f = 0;
 int main(void) {
@@ -198,7 +608,7 @@ int main(void) {
 }
 #endif
 
-// oj ȸ���ʹ�  (����...)
+// oj 회전초밥  (못함...)
 #if 0
 int main(void) {
 	int N, d, k, c;

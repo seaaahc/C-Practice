@@ -1,14 +1,14 @@
 #include "day11_lib.h"
-int sum(int x, int y) {
+int add(int x, int y) {
     return x + y;
 }
-int sub2(int x, int y) {
+int sub(int x, int y) {
     return x - y;
 }
-int mul2(int x, int y) {
+int mul(int x, int y) {
     return x * y;
 }
-int divd(int x, int y) {
+int divi(int x, int y) {
     return x / y;
 }
 int mod(int x, int y) {

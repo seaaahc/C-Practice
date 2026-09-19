@@ -15,59 +15,72 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="day06.c">
+    <ClCompile Include="01_recursive.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="day06_lib.c">
+    <ClCompile Include="01_recursive_lib.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="day07.c">
+    <ClCompile Include="01_recursive_lib.h">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="02_SLL.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="day07_lib.c">
+    <ClCompile Include="02_SLL._main.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="day08.c">
+    <ClCompile Include="05_Queue.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="day08_lib.c">
+    <ClCompile Include="05_Queue_main.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="day09.c">
+    <ClCompile Include="..\LinkedList\03_DLL.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="day09_lib.c">
+    <ClCompile Include="..\LinkedList\04_CLL.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LinkedList\04_CLL_main.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LinkedList\03_DLL_main.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="08_장기.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="07_단지번호붙이기.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="06_바이러스.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="wrong_header.h">
+    <ClInclude Include="02_SLL.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="day06_lib.h">
+    <ClInclude Include="03_DLL.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="day07_lib.h">
+    <ClInclude Include="05_Queue.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="day08_lib.h">
+    <ClInclude Include="..\LinkedList\03_DLL.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="day09_lib.h">
+    <ClInclude Include="..\LinkedList\04_CLL.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="array01.txt">
+    <Text Include="..\LinkedList\data.txt">
       <Filter>리소스 파일</Filter>
     </Text>
-    <Text Include="score.txt">
+    <Text Include="qdata.txt">
       <Filter>리소스 파일</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="animal.txt">
-      <Filter>리소스 파일</Filter>
-    </None>
   </ItemGroup>
 </Project>

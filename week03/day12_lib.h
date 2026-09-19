@@ -8,4 +8,23 @@
 
 #define SIZE(a) (sizeof(a)/sizeof(a[0]))
 
+struct profile {
+	int age;
+	double height;
+	char* name;
+	char phone[14];
+};
+
+struct student {
+	struct profile pf;
+	int num;
+	double grade;
+};
+
+struct student2 {
+	int id;
+	int scores[3];
+	char name[20];
+};
+
 #endif

@@ -27,6 +27,18 @@
     <ClCompile Include="day12_lib.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="day13.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="day13_lib.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="day14.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="day14_lib.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="day11_lib.h">
@@ -35,5 +47,22 @@
     <ClInclude Include="day12_lib.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="day13_lib.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="day14_lib.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="student.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="student2.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="student3.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
   </ItemGroup>
 </Project>

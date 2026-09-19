@@ -1,5 +1,144 @@
 #include "day11_lib.h"
 
+#if 0
+int main(void) {
+    int (*fp[5])(int, int) = { add, sub, mul, divi, mod };
+    int (**fpp)(int, int) = (int (**)(int, int)) malloc(5 * sizeof(*fpp));
+    int (**fpp)(int, int) = fp;
+
+    return 0;
+}
+#endif
+
+// s와 parr의 사용 + realloc - free 및 초기화 작업이 편해짐
+#if 0
+#define N (5)
+int main(void) {
+    char* s = 0;
+    char* save = 0;
+    char** parr = 0;
+    parr = (char**)malloc(N * sizeof(*parr)); // char* 5개를 저장할 공간
+    int offset[N] = { 0 };
+
+    if (parr == NULL) {
+        exit(0);
+    }
+
+    s = (char*)malloc(N * 80); // 실제 문자열을 저장할 공간
+    if (s == NULL) {
+        exit(0);
+    }
+    save = s;
+
+    for (int i = 0; i < N; ++i) {
+        parr[i] = s; // 현재 문자열의 시작 주소 저장
+        gets(s);
+        offset[i] = s - save;
+        s += strlen(s) + 1;
+    }
+
+    for (int i = 0; i < N; ++i) {
+        printf("%s\n", parr[i]);
+    }
+
+    char* p = (char*)realloc(save, s - save); // 줄이는 경우 보통 주소 같음
+
+    if (p == NULL) {
+        exit(0);
+    }
+    // realloc 하다가 주소가 변경된 경우
+    if (p != save) {
+        for (int i = 0; i < N; i++) {
+            parr[i] = p + offset[i];
+        }
+    }
+    s = p;
+
+    free(save);     // 문자열 저장 공간 해제
+    free(parr);    // 주소들을 저장하던 공간 해제
+    s = parr = 0;
+
+    return 0;
+}
+#endif
+
+// malloc만 사용
+#if 0
+#define N (5)
+int main(void) {
+    char* arr[N] = { 0 };
+
+    char* s = (char*)malloc(SIZE(arr) * 80);
+    if (s == NULL) {
+        exit(0);
+    }
+
+    for (int i = 0; i < 5; ++i) {
+        arr[i] = s;
+        gets(s);
+        s += strlen(s) + 1;
+    }
+
+    for (int i = 0; i < N; ++i) {
+        printf("%s\n", arr[i]);
+    }
+
+    free(arr[0]);
+    arr[0] = NULL;
+
+    return 0;
+}
+#endif
+
+// realloc까지 사용
+#if 0
+int main(void) {
+    char* arr = (char*)malloc(5 * 80);
+    if (arr == NULL) {
+        exit(0);
+    }
+
+    char* pos = arr;
+
+    // 문자열 5개 입력
+    for (int i = 0; i < 5; ++i) {
+        gets(pos);
+
+        // 다음 문자열을 저장할 위치로 이동
+        pos += strlen(pos) + 1;
+    }
+
+    // 실제 사용한 크기 계산
+    size_t used = pos - arr;
+
+    // 실제 사용한 만큼으로 축소
+    char* p = realloc(arr, used);
+
+    if (p == NULL) {
+        free(arr);
+        return 1;
+    }
+
+    arr = p;
+
+    // 출력할 때 다시 처음부터 시작
+    pos = arr;
+
+    for (int i = 0; i < 5; ++i) {
+        printf("%s\n", pos);
+
+        // 다음 문자열로 이동
+        pos += strlen(pos) + 1;
+    }
+
+    free(arr);
+    arr = NULL;
+
+    return 0;
+}
+
+#endif
+
 // 내가 짠 거....
 #if 0
 int main(void) {
@@ -357,10 +496,10 @@ int main(void) {
     const int menu_size = 6;
     op_t menu[6] = {
         {"종료", "종료", NULL},
-        {"덧셈","+", sum},
-        {"뺄셈","-", sub2},
-        {"곱셈","*", mul2},
-        {"나눗셈(몫)","/", divd},
+        {"덧셈","+", add},
+        {"뺄셈","-", sub},
+        {"곱셈","*", mul},
+        {"나눗셈(몫)","/", divi},
         {"나눗셈(나머지)","%", mod},
     };
 
@@ -380,6 +519,7 @@ int main(void) {
 }
 #endif
 
+// 10일차 함수포인터 숙제
 #if 0
 int get_menu(void) {
     int menu;
@@ -401,7 +541,7 @@ int main(void) {
     int menu;
     int x, y;
 
-    int (*func[6])(int, int) = { 0, sum, sub2, mul2, divd, mod };
+    int (*func[6])(int, int) = { 0, add, sub, mul, divi, mod };
 
     while (menu = get_menu()) {
         printf("두 정수 입력 : ");
